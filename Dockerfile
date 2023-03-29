@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y git && apt-get install -y wget && apt-g
 
 RUN curl -O https://raw.githubusercontent.com/YoshitakaMo/localcolabfold/main/install_colabbatch_linux.sh
 RUN bash install_colabbatch_linux.sh
-ENV PATH="~/colabfold_batch/colabfold-conda/bin:${PATH}"
+ENV PATH="/localcolabfold/colabfold-conda/bin:${PATH}"
 
 # Install python packages
 RUN pip3 install --upgrade pip
