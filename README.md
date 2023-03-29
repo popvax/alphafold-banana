@@ -1,20 +1,34 @@
 
-# 🍌 Banana Serverless
+# 🍌 AlphaFold2 on Banana
 
-This repo gives a framework to serve ML models in production using simple HTTP servers.
+This is a repo that lets you run [AlphaFold2](https://github.com/deepmind/alphafold) on [Banana](https://banana.dev), which is a platform to run GPU accelerated code serverlessly. This essentially means you have a quick, autoscaling API to run AlphaFold. AlphaFold is setup via [Local](https://github.com/YoshitakaMo/localcolabfold)[ColabFold](https://github.com/sokrypton/ColabFold).
 
-# Quickstart
-**[Follow the quickstart guide in Banana's documentation to use this repo](https://docs.banana.dev/banana-docs/quickstart).** 
+It takes ~3 minutes to get the model loaded and ready for inference; so expect your first call after cold start to take a while. API calls right after that should be quick! You can change the `IDLE TIMEOUT` in Banana settings, which is 10s by default (i.e your instance will shut down after 10s of no activity, and will be cold booted again next time you call it.)
 
-*(choose "GitHub Repository" deployment method)*
+## Setup
 
-<br>
+First you need to create a Banana account and get your API key. You can do that [here](https://banana.dev). Next, deploy this repo as a model in Banana, and find the key too.
 
-# Helpful Links
-Understand the 🍌 [Serverless framework](https://docs.banana.dev/banana-docs/core-concepts/inference-server/serverless-framework) and functionality of each file within it.
+## Usage
 
-Generalize this framework to [deploy anything on Banana](https://docs.banana.dev/banana-docs/resources/how-to-serve-anything-on-banana).
+To call inference, first install the Banana sdk:
+```bash
+pip install banana-dev
+```
 
-<br>
+Then, you can call the API like this:
+```python
+import banana_dev as banana
+import os
 
-## Use Banana for scale.
+api_key = "<YOUR_API_KEY>"
+model_key = "<YOUR_MODEL_KEY>"
+model_inputs = {"sequence": "LLEECLERLKKRSFIEDLLFNLKLLKEAEKK"}
+
+out = banana.run(api_key, model_key, model_inputs)
+
+pdb_string = out["modelOutputs"][0]["pdb_string"]
+
+with open("out.pdb", "w") as f:
+    f.write(pdb_string)
+```
