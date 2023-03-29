@@ -25,4 +25,4 @@ def inference(model_inputs:dict) -> dict:
         pdb = f.read()
     os.system(f"rm -rf {save_path}*")
     os.system(f"rm -rf {save_path}_inputs")
-    return {'pdb': pdb}
+    return {'pdb_string': pdb}
