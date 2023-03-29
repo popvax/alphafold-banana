@@ -1,5 +1,5 @@
 # Must use a Cuda version 11+
-FROM pytorch/pytorch:1.11.0-cuda11.3-cudnn8-runtime
+FROM nvidia/cuda:11.4.0-cudnn8-devel-ubuntu20.04
 
 WORKDIR /
 
